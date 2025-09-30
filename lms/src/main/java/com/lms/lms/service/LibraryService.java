@@ -8,72 +8,87 @@ import com.lms.lms.model.LibraryModel;
 import java.util.List;
 import java.util.Optional;
 
+import com.lms.lms.dto.LibraryInputDTO;
+import com.lms.lms.dto.LibraryResponseDTO;
+import java.util.Date;
+
 @Service
 public class LibraryService {
 
     @Autowired
     private LibraryRepository libraryRepository;
 
-    /**
-     * Create a new library
-     */
-    public LibraryModel createLibrary(LibraryModel library) {
-        if (library == null) {
-            throw new IllegalArgumentException("Library data must not be null");
-        }
-        return libraryRepository.save(library);
+    public LibraryResponseDTO createLibrary(LibraryInputDTO dto) {
+        LibraryModel library = convertToModel(dto);
+        LibraryModel savedLibrary = libraryRepository.save(library);
+        return convertToDTO(savedLibrary);
     }
 
-    /**
-     * Get all libraries
-     */
-    public List<LibraryModel> getAllLibraries() {
-        return libraryRepository.findAll();
+    public List<LibraryResponseDTO> getAllLibraries() {
+        return libraryRepository.findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .toList();
     }
 
-    /**
-     * Get library by ID
-     */
-    public Optional<LibraryModel> getLibraryById(String id) {
-        if (id == null || id.isEmpty()) {
-            return Optional.empty();
-        }
-        return libraryRepository.findById(id);
+    public Optional<LibraryResponseDTO> getLibraryById(String id) {
+        return libraryRepository.findById(id).map(this::convertToDTO);
     }
 
-    /**
-     * Update library by ID
-     */
-    public Optional<LibraryModel> updateLibrary(String id, LibraryModel libraryDetails) {
-        if (id == null || id.isEmpty() || libraryDetails == null) {
-            return Optional.empty();
-        }
-
+    public Optional<LibraryResponseDTO> updateLibrary(String id, LibraryInputDTO dto) {
         return libraryRepository.findById(id).map(existingLibrary -> {
-            existingLibrary.setName(libraryDetails.getName());
-            existingLibrary.setAddress(libraryDetails.getAddress());
-            existingLibrary.setStatus(libraryDetails.getStatus());
-            existingLibrary.setContactNumber(libraryDetails.getContactNumber());
-            existingLibrary.setEmail(libraryDetails.getEmail());
-            existingLibrary.setTotalCapacity(libraryDetails.getTotalCapacity());
-            existingLibrary.setTotalBooks(libraryDetails.getTotalBooks());
-            existingLibrary.setOpeningTime(libraryDetails.getOpeningTime());
-            existingLibrary.setClosingTime(libraryDetails.getClosingTime());
-            return libraryRepository.save(existingLibrary);
+            existingLibrary.setName(dto.getName());
+            existingLibrary.setAddress(dto.getAddress());
+            existingLibrary.setStatus(dto.getStatus());
+            existingLibrary.setContactNumber(dto.getContactNumber());
+            existingLibrary.setEmail(dto.getEmail());
+            existingLibrary.setTotalCapacity(dto.getTotalCapacity());
+            existingLibrary.setTotalBooks(dto.getTotalBooks());
+            existingLibrary.setOpeningTime(dto.getOpeningTime());
+            existingLibrary.setClosingTime(dto.getClosingTime());
+            return convertToDTO(libraryRepository.save(existingLibrary));
         });
     }
 
-    /**
-     * Delete library by ID
-     */
     public boolean deleteLibrary(String id) {
-        if (id == null || id.isEmpty()) {
-            return false;
-        }
-
-        return libraryRepository.findById(id).map(library -> {
-            libraryRepository.delete(library);
+        if (libraryRepository.existsById(id)) {
+            libraryRepository.deleteById(id);
             return true;
-        }).orElse(false);
+        }
+        return false;
     }
+
+    private LibraryModel convertToModel(LibraryInputDTO dto) {
+        LibraryModel library = new LibraryModel();
+        library.setName(dto.getName());
+        library.setAddress(dto.getAddress());
+        library.setStatus(dto.getStatus());
+        library.setContactNumber(dto.getContactNumber());
+        library.setEmail(dto.getEmail());
+        library.setTotalCapacity(dto.getTotalCapacity());
+        library.setTotalBooks(dto.getTotalBooks());
+        library.setOpeningTime(dto.getOpeningTime());
+        library.setClosingTime(dto.getClosingTime());
+        library.setCreatedAt(new Date());
+        library.setUpdatedAt(new Date());
+        return library;
+    }
+
+    private LibraryResponseDTO convertToDTO(LibraryModel library) {
+        LibraryResponseDTO dto = new LibraryResponseDTO();
+        dto.setId(library.getId());
+        dto.setName(library.getName());
+        dto.setAddress(library.getAddress());
+        dto.setStatus(library.getStatus());
+        dto.setContactNumber(library.getContactNumber());
+        dto.setEmail(library.getEmail());
+        dto.setTotalCapacity(library.getTotalCapacity());
+        dto.setTotalBooks(library.getTotalBooks());
+        dto.setOpeningTime(library.getOpeningTime());
+        dto.setClosingTime(library.getClosingTime());
+        dto.setCreatedAt(library.getCreatedAt());
+        dto.setUpdatedAt(library.getUpdatedAt());
+        return dto;
+    }
+
 }
