@@ -58,4 +58,12 @@ public class LibraryController {
         if (libraryService.deleteLibrary(id)) return ResponseEntity.noContent().build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<LibraryResponseDTO>> getLibrariesByStatus(@PathVariable String status) {
+        List<LibraryResponseDTO> libraries = libraryService.getLibrariesByStatus(status);
+        return ResponseEntity.ok(libraries);
+    }
+
+
 }

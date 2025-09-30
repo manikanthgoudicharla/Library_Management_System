@@ -2,7 +2,6 @@ package com.lms.lms.service;
 
 // Service annotation
 import org.springframework.stereotype.Service;
-import org.apache.tomcat.jni.Library;
 // Autowired import
 import org.springframework.beans.factory.annotation.Autowired;
 

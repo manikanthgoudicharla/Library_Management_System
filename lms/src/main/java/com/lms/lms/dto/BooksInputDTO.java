@@ -3,7 +3,6 @@ package com.lms.lms.dto;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import com.lms.lms.model.BookStatus;
-import java.util.Date;
 
 @Data
 public class BooksInputDTO {
@@ -29,5 +28,5 @@ public class BooksInputDTO {
     private BookStatus status;
 
     @NotBlank(message = "Library ID is required")
-    private String libraryId; // For linking to LibraryModel
+    private String libraryId;
 }

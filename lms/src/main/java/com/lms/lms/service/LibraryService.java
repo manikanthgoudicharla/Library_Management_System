@@ -58,6 +58,16 @@ public class LibraryService {
         return false;
     }
 
+    // Get Libraries by Status
+    // Get Libraries by Status
+      public List<LibraryResponseDTO> getLibrariesByStatus(String status) {
+       return libraryRepository.findByStatus(status)
+            .stream()
+            .map(this::convertToDTO)
+            .toList();
+         }
+
+
     private LibraryModel convertToModel(LibraryInputDTO dto) {
         LibraryModel library = new LibraryModel();
         library.setName(dto.getName());
