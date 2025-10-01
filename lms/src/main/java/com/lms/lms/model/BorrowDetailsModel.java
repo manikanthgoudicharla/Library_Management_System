@@ -47,19 +47,19 @@ public class BorrowDetailsModel {
 
     @Min(value = 0, message = "Late fee cannot be negative")
     @Max(value = 5000, message = "Late fee cannot exceed 5000 INR")
-    @Field(name = "lateFee", targetType = FieldType.INT32)
+    // @Field(name = "lateFee", targetType = FieldType.INT32)
     private int lateFee;
 
-    @Field(name="borrowCount" , targetType = FieldType.INT32)
+    // @Field(name="borrowCount" , targetType = FieldType.INT32)
     private int borrowCount;
 
     @NotNull(message = "Issue date is required")
-    @PastOrPresent(message = "Issue date cannot be in the future")
+    // @PastOrPresent(message = "Issue date cannot be in the future")
     @CreatedDate
-    @Field(name = "issueDate", targetType = FieldType.DATE_TIME)
+    // @Field(name = "issueDate", targetType = FieldType.DATE_TIME)
     private Date issueDate;
 
-    @FutureOrPresent(message = "Return date cannot be in the past")
+    // @FutureOrPresent(message = "Return date cannot be in the past")
     @LastModifiedDate
     @Field(name = "returnDate", targetType = FieldType.DATE_TIME)
     private Date returnDate;

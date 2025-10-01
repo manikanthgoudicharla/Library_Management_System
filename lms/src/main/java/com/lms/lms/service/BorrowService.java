@@ -14,6 +14,8 @@ import com.lms.lms.model.BorrowDetailsModel;
 import com.lms.lms.model.LibraryModel;
 import com.lms.lms.model.BookStatus;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +48,7 @@ public class BorrowService {
     }
 
     // Borrow books
+    @Transactional
     public void borrowBook(String userId, String bookId, int borrowCount) {
         if (borrowCount <= 0) throw new IllegalArgumentException("Borrow count must be greater than zero.");
 
@@ -94,6 +97,7 @@ public class BorrowService {
     }
 
     // Return books
+    @Transactional
     public void returnBook(String userId, String bookId, int returnCount) {
         if (returnCount <= 0) throw new IllegalArgumentException("Return count must be greater than zero.");
 

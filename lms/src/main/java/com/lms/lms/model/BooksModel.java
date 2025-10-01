@@ -44,7 +44,7 @@ public class BooksModel {
 
     @NotBlank(message = "Title is required")
     @Size(max = 200)
-    @Indexed(unique = true)
+    // @Indexed(unique = true)
     private String title;
 
     @NotBlank(message = "Author is required")
@@ -79,9 +79,8 @@ public class BooksModel {
     @Field(targetType = FieldType.DATE_TIME)
     private Date updatedAt;
 
+    
+
 }
-
-
-
 
 
