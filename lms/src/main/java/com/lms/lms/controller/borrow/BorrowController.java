@@ -13,12 +13,15 @@ public class BorrowController {
     @Autowired
     private BorrowService borrowService;
 
-    // Borrow a book
+    // Borrow books
     @PostMapping
-    public ResponseEntity<String> borrowBook(@RequestParam String userId, @RequestParam String bookId) {
+    public ResponseEntity<String> borrowBook(
+            @RequestParam String userId,
+            @RequestParam String bookId,
+            @RequestParam int borrowCount) {
         try {
-            borrowService.borrowBook(userId, bookId);
-            return ResponseEntity.status(HttpStatus.OK).body("Book borrowed successfully.");
+            borrowService.borrowBook(userId, bookId, borrowCount);
+            return ResponseEntity.status(HttpStatus.OK).body("Book(s) borrowed successfully.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
@@ -26,12 +29,15 @@ public class BorrowController {
         }
     }
 
-    // Return a book
+    // Return books
     @PostMapping("/return")
-    public ResponseEntity<String> returnBook(@RequestParam String userId, @RequestParam String bookId) {
+    public ResponseEntity<String> returnBook(
+            @RequestParam String userId,
+            @RequestParam String bookId,
+            @RequestParam int returnCount) {
         try {
-            borrowService.returnBook(userId, bookId);
-            return ResponseEntity.status(HttpStatus.OK).body("Book returned successfully.");
+            borrowService.returnBook(userId, bookId, returnCount);
+            return ResponseEntity.status(HttpStatus.OK).body("Book(s) returned successfully.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {

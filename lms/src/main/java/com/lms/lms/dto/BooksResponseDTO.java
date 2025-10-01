@@ -13,6 +13,7 @@ public class BooksResponseDTO {
     private String category;
     private Integer publicationYear;
     private BookStatus status;
+    private int bookCount;
 
     private String libraryId;      // Reference ID of the library
     private String libraryName;    // Human-readable name of the library

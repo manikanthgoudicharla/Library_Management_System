@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.lms.lms.repository.LibraryRepository;
 import com.lms.lms.model.LibraryModel;
+import com.lms.lms.repository.BooksRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +18,9 @@ public class LibraryService {
 
     @Autowired
     private LibraryRepository libraryRepository;
+
+    @Autowired
+    private BooksRepository booksRepository;
 
     public LibraryResponseDTO createLibrary(LibraryInputDTO dto) {
         LibraryModel library = convertToModel(dto);
@@ -42,6 +46,7 @@ public class LibraryService {
             existingLibrary.setStatus(dto.getStatus());
             existingLibrary.setContactNumber(dto.getContactNumber());
             existingLibrary.setEmail(dto.getEmail());
+            existingLibrary.setLateFee(dto.getLateFee());
             existingLibrary.setTotalCapacity(dto.getTotalCapacity());
             existingLibrary.setTotalBooks(dto.getTotalBooks());
             existingLibrary.setOpeningTime(dto.getOpeningTime());
@@ -76,6 +81,7 @@ public class LibraryService {
         library.setContactNumber(dto.getContactNumber());
         library.setEmail(dto.getEmail());
         library.setTotalCapacity(dto.getTotalCapacity());
+        library.setLateFee(dto.getLateFee());
         library.setTotalBooks(dto.getTotalBooks());
         library.setOpeningTime(dto.getOpeningTime());
         library.setClosingTime(dto.getClosingTime());
@@ -93,6 +99,7 @@ public class LibraryService {
         dto.setContactNumber(library.getContactNumber());
         dto.setEmail(library.getEmail());
         dto.setTotalCapacity(library.getTotalCapacity());
+        dto.setLateFee(library.getLateFee());
         dto.setTotalBooks(library.getTotalBooks());
         dto.setOpeningTime(library.getOpeningTime());
         dto.setClosingTime(library.getClosingTime());

@@ -19,6 +19,9 @@ public class BooksInputDTO {
     @Size(max = 100, message = "Category cannot exceed 100 characters")
     private String category;
 
+    @NotNull(message="Books Count is required")
+    private int bookCount;
+
     @NotNull(message = "Publication year is required")
     @Min(value = 1000, message = "Publication year must be a valid year")
     @Max(value = 9999, message = "Publication year must be a valid year")

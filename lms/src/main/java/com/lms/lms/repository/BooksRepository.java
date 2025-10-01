@@ -15,5 +15,6 @@ import java.util.List;
 @Repository
 public interface BooksRepository extends MongoRepository<BooksModel, String> {
     List<BooksModel> findByLibraryId(String libraryId);
+    long countByLibraryId(String libraryId);
 }
 

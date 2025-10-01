@@ -13,8 +13,9 @@ public class LibraryResponseDTO {
     private LibraryStatus status;
     private String contactNumber;
     private String email;
-    private int totalCapacity;
-    private int totalBooks;
+    private Integer totalCapacity;
+    private Integer totalBooks;
+    private Integer lateFee;
     private String openingTime;
     private String closingTime;
     private Date createdAt;

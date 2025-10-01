@@ -4,7 +4,6 @@ import jakarta.validation.constraints.*;
 import com.lms.lms.model.LibraryStatus;
 import lombok.Data;
 
-
 @Data
 public class LibraryInputDTO {
 
@@ -28,13 +27,17 @@ public class LibraryInputDTO {
     @Size(max = 100)
     private String email;
 
+    @NotNull(message="Late fee is Required")
+    @Positive(message="Late fee should be a positive number")
+    private Integer lateFee;
+
     @NotNull(message = "Total capacity is required")
     @Positive(message = "Total capacity must be positive")
-    private int totalCapacity;
+    private Integer totalCapacity;
 
     @NotNull(message = "Total books is required")
     @Positive(message = "Total books must be positive")
-    private int totalBooks;
+    private Integer totalBooks;
 
     @NotBlank(message = "Opening time is required")
     @Size(max = 10)

@@ -63,9 +63,13 @@ public class BooksModel {
     @NotNull(message = "Status is required")
     private BookStatus status;
 
+    @NotNull(message="Books Count is required")
+    private int bookCount;
+
     @DBRef
     @NotNull(message = "Library reference is required")
     private LibraryModel library;
+
 
     @CreatedDate
     @Field(targetType = FieldType.DATE_TIME)
